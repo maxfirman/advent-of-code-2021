@@ -1,15 +1,12 @@
-use crate::aoc::{
-    aoc1,
-    aoc2,
-};
-
 mod aoc;
 mod utils;
 
 
 fn main() {
-    // aoc1::part1();
-    // aoc1::part2();
-    aoc2::part1();
-    aoc2::part2();
+    // aoc::aoc1::part1();
+    // aoc::aoc1::part2();
+    // aoc::aoc2::part1();
+    // aoc::aoc2::part2();
+    aoc::aoc3::part1();
+    // aoc::aoc3::part2();
 }

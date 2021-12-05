@@ -2,10 +2,77 @@ use std::cmp::{max, min};
 
 use crate::io::read_lines;
 
+use std::iter;
+
 const FILE: &str = "data/aoc5.txt";
 
 
 fn part1() -> usize {
+    let (nx, ny, vec) = read_file();
+
+    let mut vec2 = vec![vec![0; ny]; nx];
+
+    for ((x1, y1), (x2, y2)) in vec {
+        if x1 == x2 {
+            for y in min(y1, y2)..=max(y1, y2) {
+                vec2[x1][y] += 1
+            }
+        } else if y1 == y2 {
+            for x in min(x1, x2)..=max(x1, x2) {
+                vec2[x][y1] += 1
+            }
+        }
+    }
+    compute_score(&vec2)
+}
+
+fn part2() -> usize {
+    let (nx, ny, vec) = read_file();
+
+    let mut vec2 = vec![vec![0; ny]; nx];
+
+    for ((x1, y1), (x2, y2)) in vec {
+        if x1 == x2 {
+            for y in min(y1, y2)..=max(y1, y2) {
+                vec2[x1][y] += 1
+            }
+        } else if y1 == y2 {
+            for x in min(x1, x2)..=max(x1, x2) {
+                vec2[x][y1] += 1
+            }
+        } else {
+            let mut x = x1;
+            let mut y = y1;
+            loop {
+                vec2[x][y] += 1;
+                if x == x2 {
+                    break;
+                }
+                if x2 > x1 {
+                    x += 1;
+                } else {
+                    x -= 1;
+                }
+                if y2 > y1 {
+                    y += 1;
+                } else {
+                    y -= 1;
+                }
+            }
+        }
+    }
+    compute_score(&vec2)
+}
+
+fn compute_score(vec2: &Vec<Vec<i32>>) -> usize {
+    vec2
+        .iter()
+        .flat_map(|array| array.iter())
+        .filter(|x| **x >= 2)
+        .count()
+}
+
+fn read_file() -> (usize, usize, Vec<((usize, usize), (usize, usize))>) {
     let mut x_max: usize = 0;
     let mut y_max: usize = 0;
 
@@ -35,30 +102,7 @@ fn part1() -> usize {
 
         vec.push(((x1, y1), (x2, y2)));
     }
-
-    let mut vec2 = vec![vec![0; y_max + 1]; x_max + 1];
-
-    for ((x1, y1), (x2, y2)) in vec {
-        if x1 == x2 {
-            for y in min(y1, y2)..max(y1, y2) + 1 {
-                vec2[x1][y] += 1
-            }
-        } else if y1 == y2 {
-            for x in min(x1, x2)..max(x1, x2) + 1 {
-                vec2[x][y1] += 1
-            }
-        }
-    }
-
-    vec2
-        .iter()
-        .flat_map(|array| array.iter())
-        .filter(|x| **x >= 2)
-        .count()
-}
-
-fn part2() -> i32 {
-    0
+    (x_max + 1, y_max + 1, vec)
 }
 
 
@@ -73,7 +117,7 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        println!("{}", part2());
+        assert_eq!(part2(), 16925);
     }
 }
 

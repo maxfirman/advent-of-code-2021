@@ -7,7 +7,7 @@ const RADIX: u32 = 10;
 type Bits = [bool; N];
 
 
-pub fn part1() {
+fn part1() -> u32 {
     let mut array = [0; N];
     let mut n = 0;
     for line in read_lines(FILE).unwrap() {
@@ -22,16 +22,16 @@ pub fn part1() {
     let gamma = as_integer(array.map(|x| x > n / 2));
     let epsilon = as_integer(array.map(|x| x < n / 2));
 
-    println!("{}", gamma * epsilon);
+    return gamma * epsilon;
 }
 
-pub fn part2() {
+fn part2() -> u32 {
     let vec = read_file_to_vector();
 
     let res1 = as_integer(filter(vec.clone(), pick_longest));
     let res2 = as_integer(filter(vec.clone(), pick_shortest));
 
-    println!("{}", res1 * res2);
+    return res1 * res2;
 }
 
 fn pick_longest<T>(v1: Vec<T>, v2: Vec<T>) -> Vec<T> {
@@ -82,11 +82,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        part1();
+        assert_eq!(part1(), 693486);
     }
 
     #[test]
     fn test_part2() {
-        part2();
+        assert_eq!(part2(), 3379326);
     }
 }

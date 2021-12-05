@@ -3,7 +3,7 @@ use crate::io::read_lines;
 
 const FILE: &str = "data/aoc2.txt";
 
-pub fn part1() {
+fn part1() -> i32 {
     let mut distance = 0;
     let mut depth = 0;
     for line in read_lines(FILE).unwrap() {
@@ -16,11 +16,11 @@ pub fn part1() {
             _ => panic!("Unrecognised instruction: {}", instruction),
         }
     }
-    println!("{}", distance * depth);
+    return distance * depth;
 }
 
 
-pub fn part2() {
+fn part2() -> i32 {
     let mut distance = 0;
     let mut depth = 0;
     let mut aim = 0;
@@ -39,7 +39,7 @@ pub fn part2() {
             _ => panic!("Unrecognised instruction: {}", instruction),
         }
     }
-    println!("{}", distance * depth);
+    return distance * depth;
 }
 
 fn parse_line<E: Debug>(val: &Result<String, E>) -> (&str, i32) {
@@ -55,11 +55,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        part1();
+        assert_eq!(part1(), 1451208);
     }
 
     #[test]
     fn test_part2() {
-        part2();
+        assert_eq!(part2(), 1620141160);
     }
 }

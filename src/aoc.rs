@@ -1,3 +1,3 @@
-pub mod aoc1;
-pub mod aoc2;
-pub mod aoc3;
+mod aoc1;
+mod aoc2;
+mod aoc3;

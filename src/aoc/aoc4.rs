@@ -54,27 +54,24 @@ fn compute_score(board: &Board, numbers_set: &HashSet<i32>, number: i32) -> i32 
     return sum * number;
 }
 
-fn check_board(board: &Board, nums: &HashSet<i32>) -> bool {
-    for i in 0..N {
-        let mut row = true;
-        for j in 0..N {
-            row &= nums.contains(&board[i][j])
-        }
-        if row {
-            return true;
-        }
-    }
+fn regular(i: usize, j: usize, board: &Board) -> i32 {
+    board[i][j]
+}
 
-    for j in 0..N {
-        let mut col = true;
-        for i in 0..N {
-            col &= nums.contains(&board[i][j])
-        }
-        if col {
-            return true;
-        }
-    }
-    return false;
+fn transpose(i: usize, j: usize, board: &Board) -> i32 {
+    board[j][i]
+}
+
+fn check_rows(board: &Board, nums: &HashSet<i32>, get: fn(usize, usize, &Board) -> i32) -> bool {
+    (0..N)
+        .map(|i| (0..N)
+            .map(|j| get(i, j, &board))
+            .all(|x| nums.contains(&x)))
+        .any(|x| x)
+}
+
+fn check_board(board: &Board, nums: &HashSet<i32>) -> bool {
+    check_rows(&board, &nums, regular) | check_rows(&board, &nums, transpose)
 }
 
 fn read_file() -> (Vec<i32>, Vec<Board>) {

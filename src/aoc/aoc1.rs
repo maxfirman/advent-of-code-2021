@@ -20,10 +20,26 @@ pub fn part2() {
         .unwrap()
         .map(|val| val.unwrap().parse::<i32>().unwrap())
         .windows::<N>()
-        .map(|x| -> i32 {x.iter().sum()})
+        .map(|x| -> i32 { x.iter().sum() })
         .windows()
         .map(|[prev, next]| (next > prev) as i32)
         .sum();
 
     println!("{}", sum);
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part1() {
+        part1()
+    }
+
+    #[test]
+    fn test_part2() {
+        part2()
+    }
+}
+

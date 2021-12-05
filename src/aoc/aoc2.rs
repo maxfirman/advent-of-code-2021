@@ -48,3 +48,18 @@ fn parse_line<E: Debug>(val: &Result<String, E>) -> (&str, i32) {
     let x = split.next().unwrap().parse::<i32>().unwrap();
     (instruction, x)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part1() {
+        part1()
+    }
+
+    #[test]
+    fn test_part2() {
+        part2()
+    }
+}

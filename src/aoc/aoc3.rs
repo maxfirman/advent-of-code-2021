@@ -75,3 +75,18 @@ fn filter(mut v: Vec<Bits>, f: fn(Vec<Bits>, Vec<Bits>) -> Vec<Bits>) -> Bits {
     }
     return v[0];
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part1() {
+        part1()
+    }
+
+    #[test]
+    fn test_part2() {
+        part2()
+    }
+}

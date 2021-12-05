@@ -52,7 +52,6 @@ fn as_integer(bits: Bits) -> u32 {
 
 fn read_file_to_vector() -> Vec<Bits> {
     let mut vec = Vec::new();
-    let mut n = 0;
     for line in read_lines(FILE).unwrap() {
         let line = line.unwrap();
         let mut chars = line.chars();
@@ -61,7 +60,6 @@ fn read_file_to_vector() -> Vec<Bits> {
             arr[i] = chars.next().unwrap().to_digit(RADIX).unwrap() != 0;
         }
         vec.push(arr);
-        n += 1;
     }
     vec
 }

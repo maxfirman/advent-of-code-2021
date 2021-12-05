@@ -1,4 +1,4 @@
-use crate::utils::io::read_lines;
+use crate::io::read_lines;
 
 const FILE: &str = "data/aoc3.txt";
 const N: usize = 12;
@@ -82,11 +82,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        part1()
+        part1();
     }
 
     #[test]
     fn test_part2() {
-        part2()
+        part2();
     }
 }

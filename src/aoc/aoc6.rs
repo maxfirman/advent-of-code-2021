@@ -30,8 +30,8 @@ fn part1(days: usize) -> usize {
 fn part2(days: usize) -> usize {
     let nums = read_nums();
 
-    let mut d1: HashMap<usize, usize> = HashMap::new();
-    let mut d2: HashMap<usize, usize> = HashMap::new();
+    let mut d1 = HashMap::new();
+    let mut d2 = HashMap::new();
 
     for num in nums {
         *d1.entry(num).or_insert(0) += 1

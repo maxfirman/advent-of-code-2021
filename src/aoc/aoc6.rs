@@ -80,6 +80,7 @@ mod tests {
 
     #[test]
     fn test_part2() {
+        assert_eq!(part1(80), part2(80));
         assert_eq!(part2(256), 1600306001288);
     }
 }

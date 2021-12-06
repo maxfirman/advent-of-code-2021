@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::fmt;
 use std::str::FromStr;
 
@@ -28,24 +27,24 @@ fn part1(days: usize) -> usize {
 }
 
 fn part2(days: usize) -> usize {
-    let nums = read_nums();
+    let nums: Vec<usize> = read_nums();
 
-    let mut d1 = HashMap::new();
-    let mut d2 = HashMap::new();
+    let mut l1 = [0; N];
+    let mut l2 = [0; N];
 
     for num in nums {
-        *d1.entry(num).or_insert(0) += 1
+        l1[num] += 1
     }
 
     for i in 0..days {
         let j = i % N;
         let k = (j + 2) % N;
-        *d2.entry(k).or_insert(0) += d1.get(&j).unwrap_or(&0);
-        *d1.entry(j).or_insert(0) += d2.get(&j).unwrap_or(&0);
-        d2.insert(j, 0);
+        l2[k] += l1[j];
+        l1[j] += l2[j];
+        l2[j] = 0;
     }
 
-    return d1.values().sum::<usize>() + d2.values().sum::<usize>();
+    return l1.iter().sum::<usize>() + l2.iter().sum::<usize>();
 }
 
 fn read_nums<T>() -> Vec<T>

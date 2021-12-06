@@ -1,13 +1,13 @@
 use std::fmt;
 use std::str::FromStr;
 
-use crate::io::read_lines;
+use crate::io::read_split;
 
 const FILE: &str = "data/aoc6.txt";
 const N: usize = 7;
 
 fn part1(days: usize) -> usize {
-    let mut nums = read_nums();
+    let mut nums: Vec<i32> = read_nums().collect();
 
     for _ in 0..days {
         let n = nums
@@ -27,12 +27,11 @@ fn part1(days: usize) -> usize {
 }
 
 fn part2(days: usize) -> usize {
-    let nums: Vec<usize> = read_nums();
 
     let mut l1 = [0; N];
     let mut l2 = [0; N];
 
-    for num in nums {
+    for num in read_nums::<usize>() {
         l1[num] += 1
     }
 
@@ -47,19 +46,15 @@ fn part2(days: usize) -> usize {
     return l1.iter().sum::<usize>() + l2.iter().sum::<usize>();
 }
 
-fn read_nums<T>() -> Vec<T>
+fn read_nums<T>() -> impl Iterator<Item=T>
     where
         T: FromStr,
         <T as FromStr>::Err: fmt::Debug,
 {
-    read_lines(FILE)
+    let byte = b","[0];
+    read_split(FILE, byte)
         .unwrap()
-        .next()
-        .unwrap()
-        .unwrap()
-        .split(",")
-        .map(|x| x.parse::<T>().unwrap())
-        .collect()
+        .map(|x| String::from_utf8(x.unwrap()).unwrap().parse::<T>().unwrap())
 }
 
 
@@ -77,5 +72,12 @@ mod tests {
         assert_eq!(part1(80), part2(80));
         assert_eq!(part2(256), 1600306001288);
     }
+
+    // #[test]
+    // fn test_split() {
+    //     for x in read_nums() {
+    //         println!("{}", x);
+    //     }
+    // }
 }
 

@@ -2,8 +2,6 @@ use std::cmp::{max, min};
 
 use crate::io::read_lines;
 
-use std::iter;
-
 const FILE: &str = "data/aoc5.txt";
 
 

@@ -1,9 +1,11 @@
 use std::collections::HashMap;
+use std::fmt;
+use std::str::FromStr;
 
 use crate::io::read_lines;
 
 const FILE: &str = "data/aoc6.txt";
-
+const N: usize = 7;
 
 fn part1(days: usize) -> usize {
     let mut nums = read_nums();
@@ -26,13 +28,12 @@ fn part1(days: usize) -> usize {
 }
 
 fn part2(days: usize) -> usize {
-    let mut nums2 = read_nums();
-    let mut nums = nums2.iter().map(|x| *x as usize);
+    let nums = read_nums();
 
     let mut d1: HashMap<usize, usize> = HashMap::new();
     let mut d2: HashMap<usize, usize> = HashMap::new();
 
-    for i in 0..=7 {
+    for i in 0..N {
         d1.insert(i, 0);
         d2.insert(i, 0);
     }
@@ -42,8 +43,8 @@ fn part2(days: usize) -> usize {
     }
 
     for i in 0..days {
-        let j = i % 7;
-        let k = (j + 2) % 7;
+        let j = i % N;
+        let k = (j + 2) % N;
         *d2.get_mut(&k).unwrap() += d1[&j];
         *d1.get_mut(&j).unwrap() += d2[&j];
         d2.insert(j, 0);
@@ -52,14 +53,18 @@ fn part2(days: usize) -> usize {
     return d1.values().sum::<usize>() + d2.values().sum::<usize>();
 }
 
-fn read_nums() -> Vec<i32> {
+fn read_nums<T>() -> Vec<T>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: fmt::Debug,
+{
     read_lines(FILE)
         .unwrap()
         .next()
         .unwrap()
         .unwrap()
         .split(",")
-        .map(|x| x.parse::<i32>().unwrap())
+        .map(|x| x.parse::<T>().unwrap())
         .collect()
 }
 

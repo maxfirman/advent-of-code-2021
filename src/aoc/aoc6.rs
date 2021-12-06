@@ -42,7 +42,7 @@ fn part2(days: usize) -> usize {
         l2[j] = 0;
     }
 
-    return l1.iter().sum::<usize>() + l2.iter().sum::<usize>();
+    l1.iter().sum::<usize>() + l2.iter().sum::<usize>()
 }
 
 fn read_nums<T>() -> impl Iterator<Item=T>

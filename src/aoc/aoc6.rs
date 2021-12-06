@@ -33,20 +33,15 @@ fn part2(days: usize) -> usize {
     let mut d1: HashMap<usize, usize> = HashMap::new();
     let mut d2: HashMap<usize, usize> = HashMap::new();
 
-    for i in 0..N {
-        d1.insert(i, 0);
-        d2.insert(i, 0);
-    }
-
     for num in nums {
-        *d1.get_mut(&num).unwrap() += 1;
+        *d1.entry(num).or_insert(0) += 1
     }
 
     for i in 0..days {
         let j = i % N;
         let k = (j + 2) % N;
-        *d2.get_mut(&k).unwrap() += d1[&j];
-        *d1.get_mut(&j).unwrap() += d2[&j];
+        *d2.entry(k).or_insert(0) += d1.get(&j).unwrap_or(&0);
+        *d1.entry(j).or_insert(0) += d2.get(&j).unwrap_or(&0);
         d2.insert(j, 0);
     }
 

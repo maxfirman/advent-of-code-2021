@@ -27,7 +27,6 @@ fn part1(days: usize) -> usize {
 }
 
 fn part2(days: usize) -> usize {
-
     let mut l1 = [0; N];
     let mut l2 = [0; N];
 
@@ -51,8 +50,7 @@ fn read_nums<T>() -> impl Iterator<Item=T>
         T: FromStr,
         <T as FromStr>::Err: fmt::Debug,
 {
-    let byte = b","[0];
-    read_split(FILE, byte)
+    read_split(FILE, b","[0])
         .unwrap()
         .map(|x| String::from_utf8(x.unwrap()).unwrap().parse::<T>().unwrap())
 }
